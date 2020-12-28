@@ -1,0 +1,42 @@
+<div class="container">
+
+    <div>
+        <label for="database_name_p" style="color: white;"> Database Name </label>
+        <input id="database_name_p" type="text" class="form-control" value="inspection"></input>
+    </div>
+    <div>
+        <label for="database_type_p" style="color: white;"> Database Type </label>
+        <input id="database_type_p" type="text" class="form-control" value="postgresql"></input>	  
+     </div>
+     <div>
+        <label for="database_host_p" style="color: white;"> Database Host </label>
+        <input id="database_host_p" type="text" class="form-control" value="localhost"></input>	  
+     </div>
+    <div>
+        <label for="database_port_p" style="color: white;"> Database Port </label>
+        <input id="database_port_p" type="text" class="form-control" value="5432"></input>	  
+    </div>
+    <div>
+        <label for="user_name_p" style="color: white;"> UserName </label>
+        <input id="user_name_p" type="text" class="form-control" value="postgres"></input>	  
+    </div>
+    <div>
+        <label for="pass_p" style="color: white;"> PassWord </label>
+        <input id="pass_p" type="password" class="form-control" value="65515525"></input>	  
+    </div>
+
+    <div>
+        <label for="constraint_path" style="color: white;"> Constraint Path </label>
+        <input id="constraint_path" type="text" class="form-control" value=""></input>
+        
+        <div style="margin: auto; width: 100px">
+            <button class="btn" style="margin-top: 5px" onclick="load_constraint()">Load</button>	  
+        </div>
+    </div>
+
+    
+    <div style="margin: auto; width: 100px">
+        <button style="margin-top:0.5em;" onclick="preprocess()" class="btn btn-primary mb-2">Preprocess</button>
+    </div>
+
+</div>

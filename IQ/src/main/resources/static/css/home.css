@@ -1,0 +1,25 @@
+/*#vio{
+  height: 100px;
+  width: 25%;
+}*/
+
+body {
+  overflow: hidden;
+}
+
+#content{
+overflow-y:scroll;
+height: 50em;
+}
+
+
+.violation_style{
+  border: 1px solid blue;
+  border-radius: 15px;
+  background: #aaa;
+  color: white;
+  display: inline-block;
+  margin: 5px;
+  padding: 4px;
+  cursor: pointer;
+}

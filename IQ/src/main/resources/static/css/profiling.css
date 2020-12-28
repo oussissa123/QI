@@ -1,0 +1,138 @@
+.pad{
+	background: white;
+}
+
+.separator{
+	border-top: 1px solid rgb(127,127,127);
+}
+
+.titre{
+	margin-top: 10px;
+	font-size: 2em;
+	margin-left: 10px;
+}
+
+.menu{
+background: white;
+height: 1000em;
+}
+
+
+.fieldset {
+  border: 1px solid #ddd;
+  /*border: 1px groove #ddd ;
+  padding: 0 1.4em 1.4em 1.4em ;*/
+  /*margin: 0 0 1.5em 0 !important;*/
+  margin: 10px;
+  /*-webkit-box-shadow:  0px 0px 0px 0px #000;
+  box-shadow:  0px 0px 0px 0px #000;*/
+}
+
+
+.legend {
+  font-size: 1em ;
+  font-weight: bold ;
+  text-align: left ;
+  width:inherit; 
+  padding:0 10px; 
+  border-bottom:none;
+  margin-top: -10px;
+  background: white;
+  position: absolute;
+  margin-left: 10px;
+}
+
+#fielsetprinc{
+  overflow-y:scroll;
+  height: 5em;
+  padding: 6px;
+}
+
+.fielsetpartiel{
+  overflow-y:scroll;
+  height: 100%;
+}
+
+.inB{
+  display: inline;
+  margin-right: 0.5em;
+}
+
+/*
+#selectedConstraint{
+	display:none;
+}
+*/
+
+/*
+#constraints{
+	border: 1px solid black;
+}
+*/
+
+
+
+table
+{
+    border-collapse: collapse; /* Les bordures du tableau seront coll�es (plus joli) */
+    width: 100%;
+    margin-top: 0.5em;
+}
+td,th
+{
+    border: 1px solid black;
+}
+
+
+
+#numberConstraints{
+	display: none;
+}
+
+.separ{
+	margin-top:0.5em;
+}
+
+.menu_item_{
+cursor:pointer;
+font-size:20px;
+font-family:bold;
+background:rgba(255,255,255,0.1);
+text-decoration: underline;
+margin-top: 10px;
+width:100%;
+}
+
+#part_menu{
+overflow-y:scroll;
+height: 50em;
+}
+
+#param_database{
+display: none;
+}
+
+#profiling_param{
+display: none;
+}
+
+
+.submenu{
+margin-left:25px;
+text-decoration: underline dotted;
+}
+
+.scoll1{
+height: 140px;
+overflow-y:scroll;
+}
+
+#boite_message{
+  display: none;
+  border-radius: 25px;
+  background: #73AD21;
+  padding: 20px;
+  width: 200px;
+  height: 80px;
+  color: white;
+}

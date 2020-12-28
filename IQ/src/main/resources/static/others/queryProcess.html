@@ -1,0 +1,139 @@
+<div class="container">
+
+    <div class="row pad" style="padding: 1em; margin: 0.05em;">
+    
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div style="border: 1px solid black; padding: 0.5em;">
+                <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Measures</div>
+                <div style="margin-top: 5px;">                       
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CBM" name="measures" value="CBM" checked></input>
+                        <label for="CBM">CBM</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CBS" name="measures" value="CBS"></input>
+                        <label for="CBS">CBS</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CSM_min" name="measures" value="CSM_min"></input>
+                        <label for="CSM_min">CSM_min</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CSS_min" name="measures" value="CSS_min"></input>
+                        <label for="CSS_min">CSS_min</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CSM_max" name="measures" value="CSM_max"></input>
+                        <label for="CSM_max" style="margin-right: 10px;">CSM_max</label>
+                    </div>
+                    <div style="display: inline;">
+                        <input type="radio" id="CSS_max" name="measures" value="CSS_max"></input>
+                        <label for="CSS_max">CSS_max</label>
+                    </div>
+                </div>
+            </div>
+            <textarea placeholder="Input Conjunctive Query" id="query" style="width: 100%; height: 9em; resize: none;"></textarea>
+        </div>
+        
+
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div style="border: 1px solid black; padding: 0.5em;">
+                <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Filtering</div>
+                <div style="margin-top: 5px;">
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="top_k" name="operateurs" value="top-k" checked></input>
+                        <label for="top_k">top-k</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="dif_" name="operateurs" value="dif_"></input>
+                        <label for="dif_"><></label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="inf_" name="operateurs" value="inf_"></input>
+                        <label for="inf_"><</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="sup_" name="operateurs" value="sup_"></input>
+                        <label for="sup_">></label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="eq_" name="operateurs" value="eq_"></input>
+                        <label for="eq_">=</label>
+                    </div>
+                    <div style="display: inline; margin-right: 10px;">
+                        <input type="radio" id="inf_eq_" name="operateurs" value="<="></input>
+                        <label for="inf_eq_"><=</label>
+                    </div>
+                    <div style="display: inline; margin-right: 10px;">
+                        <input type="radio" id="sup_eq_" name="operateurs" value=">="></input>
+                        <label for="sup_eq_">>=</label>
+                    </div>
+                    <div style="display: inline;">
+                        <input type="radio" id="all" name="operateurs" value="all"></input>
+                        <label for="all">all</label>
+                    </div>
+                </div>
+                <input type="number" class="form-control" placeholder="Filter value" id="filter_value"></input>
+            </div>
+            <div style="border: 1px solid black; padding: 0.5em;">
+                <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Constraints</div>
+                <div id="constraints_to_check" style="height: 5em; width: 100%; overflow-y:scroll;">
+                    <!--div style="display: inline; margin-right: 10px;">
+                        <input type="checkbox" id="c_1" value="c_1"></input>
+                        <label for="c_1">C1</label>
+                    </div>
+                    <div style="display: inline;">
+                        <input type="checkbox" id="c_2" value="c_2"></input>
+                        <label for="c_2">C2</label>
+                    </div-->
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-sm-6 col-xs-6" style="width: 100px; margin: auto;">
+            <button class="btn btn-primary" onclick="validQuery()" style="margin-top: 10px;">Valid</button>
+        </div>
+        
+    </div>
+
+
+
+    <div class="row">
+        
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="pad" style="margin-top: 0.5em; padding: 1em;">
+                <div style="border: 1px solid black; padding: 0.5em;">
+                    <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Dist.Vio.Sub.Cons</div>
+                    <div id="simple_statistics_subset_constraints_">
+                        <canvas id="simple_statistics_subset_constraints"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="pad" style="margin-top: 0.5em; padding: 1em;">
+                <div style="border: 1px solid black; padding: 0.5em;">
+                    <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Distr. Viol</div>
+                    <div id="simple_statistics_by_constraint_" >
+                        <canvas id="simple_statistics_by_constraint"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!-- Data vsulatisation -->
+    <div class="row">
+        <div class="pad">
+            <div style="width: 100%; height: 20em; overflow: scroll; margin:0.5em; padding: 1em;" id="result">
+                tableau de result
+            </div>
+            <div style="width: 100px; margin: auto;"> <button class="btn btn-primary" onclick="giveNext()">Next</button> </div>
+        </div>
+    </div>
+
+</div>

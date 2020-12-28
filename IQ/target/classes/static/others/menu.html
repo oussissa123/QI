@@ -1,0 +1,45 @@
+
+<div id="part_menu">
+    <div id="boite_message">  </div>
+    
+    <div class="menu_item_" onclick="show_database_param()">Input Database</div>
+    <div id="param_database">
+        <div>
+            <label for="database_name"> Database Name </label>
+            <input id="database_name" type="text" class="form-control" value="inspection"></input>
+        </div>
+        <div>
+            <label for="database_type"> Database Type </label>
+            <input id="database_type" type="text" class="form-control" value="postgresql"></input>	  
+         </div>
+         <div>
+            <label for="database_host"> Database Host </label>
+            <input id="database_host" type="text" class="form-control" value="localhost"></input>	  
+         </div>
+        <div>
+            <label for="database_port"> Database Port </label>
+            <input id="database_port" type="text" class="form-control" value="5432"></input>	  
+        </div>
+        <div>
+                <label for="user_name"> UserName </label>
+                <input id="user_name" type="text" class="form-control" value="postgres"></input>	  
+        </div>
+        <div>
+            <label for="pass"> PassWord </label>
+            <input id="pass" type="password" class="form-control" value="65515525"></input>	  
+        </div>
+        <div>
+            <button style="margin-top:0.5em;" onclick="load_database()" class="btn btn-primary mb-2">Load Database</button>
+        </div>
+    </div>	
+    <div class="menu_item_" onclick="doPreprocess()"> Database Annotation</div>
+    <div class="menu_item_" onclick="show_profiling()"> Data I-Profiling</div>
+    <div id="profiling_param">
+        <div class="menu_item_ submenu" onclick="simpleStatistics()"> Simple Statistics </div>
+        <div class="menu_item_ submenu" onclick="correlated_violations()"> D.E-Constraints </div>
+        <div class="menu_item_ submenu" onclick="Data_Exploration()"> Data Exploration </div>
+    </div>
+        
+    <div class="menu_item_" onclick="QueryProcess()"> Query I-Profiling</div>
+</div>
+</div>

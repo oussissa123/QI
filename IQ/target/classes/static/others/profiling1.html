@@ -1,0 +1,123 @@
+<div class="container" style="padding: 1em">
+    <div class="row">		
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class = "pad">
+                <div class="titre">Proportion of Violations</div>
+                <div class="separator"></div>
+                <div id="inc_vio_">
+                    <canvas id="inc_vio" height="100" width="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class = "pad">
+                <div class="titre">Distribution of Violations</div>
+                <div class="separator"></div>
+                <div id="dist_vio_">
+                    <canvas id="dist_vio" height="100" width="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">		
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class = "pad">
+                <div class="titre">Violations by Constraint</div>
+                <div class="separator"></div>
+                <div id="dist_cons_">
+                    <canvas id="dist_cons" height="100" width="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class = "pad">
+                <div class="titre">Violations by Subset of Constraints</div>
+                <div class="separator"></div>
+                <div id="dist_sub_">
+                    <canvas id="dist_sub" height="100" width="300"></canvas>
+                </div>
+            </div>		
+        </div>		
+    </div>
+
+    <div class="row separ scoll1">		
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class = "pad">
+                <span class="col-md-6 col-sm-6 col-xs-6 titre">Filtering</span>
+                <button style="margin-top:0.5em;" onclick="do_filter()" class="btn btn-primary mb-2">Do Filter</button>      
+                <div class="separator"></div>
+                <div class="container">
+                    <div class ="col-md-6 col-sm-6 col-xs-6">
+                          <input type="radio" id="huey" onchange="choose_filter()" name="filter" value="constraint" checked>
+                          <label for="huey">Selected Constraints</label>
+                    </div>
+                    <div class = "col-md-6 col-sm-6 col-xs-6">
+                          <input type="radio" id="dewey" onchange="choose_filter()" name="filter" value="number">
+                            <label for="dewey">Thresholding</label>
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <div class ="col-md-12 col-sm-12 col-xs-12" id="selectedConstraint">
+                        <!-- idConstraint NameConstraint selection-->
+                        <table id="constraint_description">
+                        
+                        </table>
+                    </div>
+                    
+                    <div class ="row" id="numberConstraints">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <label for="violation">Threshold</label>
+                            <input type="number" id="violation" class="form-control"></input>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="radio" id="eq" name="op" value="="></input>
+                                            <label for="eq">=</label>
+                                        </td>
+                                      <td>
+                                          <input type="radio" id="sup_eq" name="op" value=">="></input>
+                                            <label for="sup_eq">>=</label>
+                                        </td>
+                                        <td>
+                                        <input type="radio" id="inf_eq" name="op" value="<="></input>
+                                            <label for="inf_eq"><=</label>
+                                        </td>
+                                    </tr>
+                                
+                                    <tr>
+                                    <td>	  									  	
+                                          <input type="radio" id="all" name="op" value="all" checked></input>
+                                            <label for="all">all</label>
+                                    </td>
+                                      
+                                      <td>  	
+                                          <input type="radio" id="sup_" name="op" value=">"></input>
+                                            <label for="sup_">></label>
+                                       </td>
+                                       
+                                       <td> 	
+                                          <input type="radio" id="inf" name="op" value="<"></input>
+                                            <label for="inf"><</label>
+                                        </td>
+                                    <tr>
+                                </table>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    
+                    
+</div>

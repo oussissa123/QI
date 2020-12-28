@@ -1,0 +1,8 @@
+com\limos\fr\Main.class
+com\limos\fr\mod\ConfigLoading.class
+com\limos\fr\queries\ProfilingImp.class
+com\limos\fr\mod\Home.class
+com\limos\fr\mod\Config.class
+com\limos\fr\exceptions\DataLoadingError.class
+com\limos\fr\queries\ProfilingService.class
+com\limos\fr\mod\Profiling.class

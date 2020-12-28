@@ -1,0 +1,91 @@
+<!-- h2>Correlated Constraint violation</h2>
+Pas encore implementé -->
+<div class="container" style="padding: 1em">
+    <div class="row">		
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class = "pad">
+                <div class="titre">Constraints Correlation</div>
+                
+                <select onchange="selectedSource()" name="pets" id="Constraint_Selected" class = "form-control">
+                    <option value="C1">Constraint 1</option>
+                    <option value="C2">Constraint 2</option>
+                    <option value="C3">Constraint 3</option>
+                    <option value="C4">Constraint 4</option>
+                    <option value="C5">Constraint 5</option>
+                    <option value="C6">Constraint 6</option>
+                </select>
+                <!--div class="separator"></div-->
+                <div id="constraints_correlation_"><canvas id="constraints_correlation" height="100" width="300"></canvas></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class = "pad">
+                <div class="titre">Data Exploration by Constraint</div>
+                
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <!--select onchange="selectedSource_()" name="pets_" id="Constraint_Selected_" class = "form-control">
+                            <option value="C1_">Constraint 1</option>
+                            <option value="C2_">Constraint 2</option>
+                            <option value="C3_">Constraint 3</option>
+                            <option value="C4_">Constraint 4</option>
+                            <option value="C5_">Constraint 5</option>
+                            <option value="C6_">Constraint 6</option>
+                        </select-->
+                        <label for="from" style="color: blue;"> FROM </label>
+                        <input type="text" class="inB form-control" id="from" value="FoodInspection t1, FoodInspection t2"></input>
+                        
+                        <label for="where" style="color: blue;"> WHERE </label>
+                        <input type="text" class="inB form-control" id="where" value="t1.Facility_Type = t2.Facility_Type, t1.violations = t2.violations, t1.Inspection_Type = t2.Inspection_Type, t1.license = t2.license, t1.Results <> t2.Results"></input>
+
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6"> 
+                        <label for="limit" style="color: blue;">  LIMIT </label>
+                        <input type="number" class="inB form-control" id="limit"></input>
+                        <br/>
+                        <button onclick="selectedSource_()" class="btn">Load</button>
+                    </div>
+                </div>
+                <div class="fieldset" id="fielsetprinc">
+                    <div class="legend">Attributs</div>
+                    <div id="attributs" style="width: 100%; height: 100%; margin-top:0.5px; padding:3px;"></div>
+                </div>
+                <!--div -->
+                <div style="display: inline-block;width: 33%; height: 4em;">
+                    <div   class="fieldset fielsetpartiel">
+                        <div class="legend">Attributs to show</div>
+                        <div id="attribut_to_show" style="height: 100%; width: 100%;margin-top:5px; padding:3px;"></div>
+                    </div>
+                </div>
+
+                <div style="display: inline-block;width: 33%; height: 4em;">
+                    <div class="fieldset fielsetpartiel">
+                        <div class="legend">Attributs to group</div>
+                        <div id="attribut_to_group" style="height: 100%; width: 100%;  margin-top:0.5px; padding:3px;">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: inline-block;width: 33%; height: 4em;">
+                    <div class="fieldset fielsetpartiel">
+                        <div class="legend">Attributs values to count</div>
+                        <div id="attribut_to_count" style="height: 100%; width: 100%;  margin-top:0.5px; padding:3px;">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--/div-->
+                <div class="separator"></div>
+                <div id="constraints_exploration_container" style="width: 100; height: 100;">
+                    <canvas id="constraints_exploration" height="100" width="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

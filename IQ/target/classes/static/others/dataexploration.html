@@ -1,0 +1,46 @@
+<!-- h2>Correlated Constraint violation</h2>
+Pas encore implementé -->
+
+<div class="container" style="padding: 1em">
+    <div class="row">		
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class = "pad">
+                <div class="titre">Proportion of Violation by Tuple</div>
+                <div style="width: 100%;height: 5em; overflow-y:scroll; padding: 0.5em;" id="constraints_loaded">
+                    <!--div style="display: inline-block; margin-left: 0.5em;">
+                        <input id="C1" type="checkbox" value="C1" checked></input>
+                        <label for="C1">C1</label>
+                    </div>
+                    <div style="display: inline-block; margin-left: 0.5em;">
+                        <input id="C2" type="checkbox" value="C2" checked></input>
+                        <label for="C2">C2</label>
+                    </div-->
+                </div>
+                <div style="width: 100px; margin: auto;"> <button onclick="changeConstraints()">Valid</button> </div>
+                <div class="separator"></div>
+                <div id="tuple_proprtions_vio_">
+                    <canvas id="tuple_proprtions_vio" style="width: 100px; height: 100px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">		
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class = "pad">
+                <div class="titre">Violations</div>
+                <div class="separator"></div>
+                <div id="tuples_correlation_vio" style="width: 100%; height: 25em; overflow-y: scroll; padding: 5px;">
+                    <!--div class="violation_style" onclick="showTups('[t_1, t_2]')">
+                        C1
+                    </div>
+                    <div class="violation_style" onclick="showTups('[t_1, t_3]')"> 
+                        C2
+                    </div-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
