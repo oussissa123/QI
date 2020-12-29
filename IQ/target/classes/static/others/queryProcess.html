@@ -4,6 +4,19 @@
     
         <div class="col-md-6 col-sm-6 col-xs-6">
             <div style="border: 1px solid black; padding: 0.5em;">
+                <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Constraints</div>
+                <div id="constraints_to_check" style="height: 5em; width: 100%; overflow-y:scroll;">
+            
+                </div>
+            </div>
+            <div style="padding-left:5px;padding-right:5px; margin-left: 8px; position: absolute; margin-top:-10px;background: white;">Conjunctive Query</div>
+            <textarea id="query" style="width: 100%; height: 9em; resize: none;"></textarea>
+        </div>
+        
+
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            
+            <div style="border: 1px solid black; padding: 0.5em;">
                 <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Measures</div>
                 <div style="margin-top: 5px;">                       
                     <div style="margin-right: 10px; display: inline;">
@@ -32,23 +45,19 @@
                     </div>
                 </div>
             </div>
-            <textarea placeholder="Input Conjunctive Query" id="query" style="width: 100%; height: 9em; resize: none;"></textarea>
-        </div>
-        
-
-        <div class="col-md-6 col-sm-6 col-xs-6">
+            
             <div style="border: 1px solid black; padding: 0.5em;">
                 <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Filtering</div>
                 <div style="margin-top: 5px;">
                     <div style="margin-right: 10px; display: inline;">
-                        <input type="radio" id="top_k" name="operateurs" value="top-k" checked></input>
+                        <input type="radio" id="top_k" name="operateurs" value="top-k" onchange="top_k()" checked></input>
                         <label for="top_k">top-k</label>
                     </div>
                     <div style="margin-right: 10px; display: inline;">
-                        <input type="radio" id="dif_" name="operateurs" value="dif_"></input>
-                        <label for="dif_"><></label>
+                        <input type="radio" id="Threshold" name="operateurs" value="Threshold" onchange="threshold()"></input>
+                        <label for="Threshold">Threshold</label>
                     </div>
-                    <div style="margin-right: 10px; display: inline;">
+                    <!--div style="margin-right: 10px; display: inline;">
                         <input type="radio" id="inf_" name="operateurs" value="inf_"></input>
                         <label for="inf_"><</label>
                     </div>
@@ -67,26 +76,13 @@
                     <div style="display: inline; margin-right: 10px;">
                         <input type="radio" id="sup_eq_" name="operateurs" value=">="></input>
                         <label for="sup_eq_">>=</label>
-                    </div>
+                    </div-->
                     <div style="display: inline;">
-                        <input type="radio" id="all" name="operateurs" value="all"></input>
+                        <input type="radio" id="all" name="operateurs" value="all" onchange="all_()"></input>
                         <label for="all">all</label>
                     </div>
                 </div>
-                <input type="number" class="form-control" placeholder="Filter value" id="filter_value"></input>
-            </div>
-            <div style="border: 1px solid black; padding: 0.5em;">
-                <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Constraints</div>
-                <div id="constraints_to_check" style="height: 5em; width: 100%; overflow-y:scroll;">
-                    <!--div style="display: inline; margin-right: 10px;">
-                        <input type="checkbox" id="c_1" value="c_1"></input>
-                        <label for="c_1">C1</label>
-                    </div>
-                    <div style="display: inline;">
-                        <input type="checkbox" id="c_2" value="c_2"></input>
-                        <label for="c_2">C2</label>
-                    </div-->
-                </div>
+                <input type="text" class="form-control" placeholder="Filter value" id="filter_value"></input>
             </div>
         </div>
         
@@ -132,7 +128,7 @@
             <div style="width: 100%; height: 20em; overflow: scroll; margin:0.5em; padding: 1em;" id="result">
                 tableau de result
             </div>
-            <div style="width: 100px; margin: auto;"> <button class="btn btn-primary" onclick="giveNext()">Next</button> </div>
+            <!--div style="width: 100px; margin: auto;"> <button class="btn btn-primary" onclick="giveNext()">Next</button> </div-->
         </div>
     </div>
 

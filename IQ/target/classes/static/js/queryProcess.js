@@ -141,7 +141,7 @@ function validQuery(){
 
     var content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+" 'selectedConstraints':"+selectedConstraints+"}"; 
 
-    alert(content)
+    //alert(content)
 
 
     var X =['A', 'B', 'C']
@@ -163,3 +163,29 @@ function getOperateursValue(){
 function getMeasuresValue(){
 	return document.querySelector('input[name="measures"]:checked').value;
 }
+
+
+
+
+function top_k(){
+    //alert('top k')
+    document.getElementById("filter_value").style = "display: block;";
+    document.getElementById("filter_value").placeholder = 'Filter value';
+}
+function threshold(){
+    //alert('threshold')
+    document.getElementById("filter_value").style = "display: block;";
+    document.getElementById("filter_value").placeholder = 'op Filter value (op: = | <= | >= | < | >)';
+}
+function all_(){
+    //alert('all')
+    document.getElementById("filter_value").style = "display: none;";
+}
+
+
+
+
+
+
+
+

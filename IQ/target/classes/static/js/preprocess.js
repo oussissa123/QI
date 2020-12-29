@@ -7,7 +7,7 @@ function doPreprocess(){
 		//figsSimpleStatistics();
 	}).catch(ef => {});	
  }
- doPreprocess();
+ //doPreprocess();
 
  function load_constraint(){
 	alert('load constraint')

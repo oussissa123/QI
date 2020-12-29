@@ -31,7 +31,7 @@ function loadConstraints_for_exploration(){
 	}).catch(e => alert(e));
 }
 
-function loadViolations(vc){
+/*function loadViolations(vc){
     var data = "{'constraints':"+vc+"}";
     var param = {'method':'Post', 'body':data};
     var url = adr+"exploration/tuple/violations/"
@@ -46,7 +46,7 @@ function loadViolations(vc){
         //});
         tuples_correlation_vio.innerHTML = res;
     }).catch(e => alert(e));
-}
+}*/
 
 function getTuplesProportion(vc){
     var data = "{'constraints':"+vc+"}";
@@ -64,7 +64,7 @@ function changeConstraints(){
     //alert(vc)
     if (vc != 0){
         getTuplesProportion(vc);
-        loadViolations(vc);
+        //loadViolations(vc);
     }
 }
 
@@ -88,7 +88,8 @@ function display_tuple_proprtions_vio(X, Y){
     tuple_proprtions_vio_remove();
     tuple_proprtions_vio_load();
     var canvas = document.getElementById('tuple_proprtions_vio')
-    canvas.height = '100';    
+    //canvas.height = '100'; 
+    canvas.width = "500";   
     var ctx3 = canvas.getContext('2d');
     var chart3 = new Chart(ctx3, {
         type: 'bar',

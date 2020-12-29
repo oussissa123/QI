@@ -1,4 +1,3 @@
-var adr = "http://176.190.24.49/";//http://localhost:8080/
 
 var shown = true;
 var shown2 = true;
