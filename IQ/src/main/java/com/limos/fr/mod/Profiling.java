@@ -150,5 +150,14 @@ public class Profiling {
 			return res; 
 		}catch(Exception e) {e.printStackTrace(); throw new DataLoadingError();}
 	}	   
-	  
+	  	
+	@RequestMapping(value = "/query/execution/", method = RequestMethod.POST)
+	public String query_execution(@RequestBody String param) {
+		try {
+			String res = service.getQueryExecution(param);
+			return res; 
+		}catch(Exception e) {e.printStackTrace(); throw new DataLoadingError();}
+	}	   
+
+	
 }

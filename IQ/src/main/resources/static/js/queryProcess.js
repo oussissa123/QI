@@ -138,22 +138,95 @@ function validQuery(){
     var measure = getMeasuresValue();
     var filter_value = document.getElementById("filter_value").value;
     var selectedConstraints = getSelectedConstraints_();
+    var content = '';
+    if (operator=='top-k'){
+        filter_value = parseInt(filter_value); 
+        if (filter_value){
+            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+" 'selectedConstraints':"+selectedConstraints+"}"; 
+            display_figs(content);
+        }else
+            alert("The filter value most be an integer");
+    }
 
-    var content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+" 'selectedConstraints':"+selectedConstraints+"}"; 
+    if (operator=='threshold'){
+        var start = filter_value.replaceAll(" ", "");
+        filter_value = start[0]; 
+        if (filter_value){
+            switch (filter_value) {
+                case '=':
+                    operator = '='
+                    filter_value = parseInt(start.substring(1));
+                    break;
+                case '<':
+                    if (start[1]=='='){
+                        operator = '<='
+                        filter_value = parseInt(start.substring(2));
+                    }else {
+                        operator = '<'
+                        filter_value = parseInt(start.substring(1));
+                    }
+                    break;
+                case '>':
+                    if (start[1]=='='){
+                        operator = '>='
+                        filter_value = parseInt(start.substring(2));
+                    }else {
+                        operator = '>'
+                        filter_value = parseInt(start.substring(1));
+                    }
+                    break;
+                default:
+                  operator='NaN';
+            }
+        }
+        if (filter_value && operator != 'NaN'){
+            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+" 'selectedConstraints':"+selectedConstraints+"}"; 
+            display_figs(content);
+        }else
+            alert("The filter value most be for example: =4 or <4 or >4 or <=4 or >=4 with 4 the theshold");
+    }
+    if (operator=='all'){
+        content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+" 'selectedConstraints':"+selectedConstraints+"}"; 
+        display_figs(content);
+    }
+}
 
-    //alert(content)
+function display_figs(data){
+
+    var param = {'method':'Post', 'body':data};
+    var url = adr+"query/execution/"
+
+    fetch(url,param).then(e => e.json()).then(e => {			
+        
+        var X1 =['A', 'B', 'C']
+        var Y = [1,3,2]
+        var X =['1', '2', '3']
+        var Y1 = [3,2,4]
+
+        display_subsets(X1, Y1);
+        display_by_constraint(X, Y)
+        tab = []
+        for(var i=0; i<20; i++){
+            tab.push(["a"+i, "b"+i, "c"+i])
+        }
+        display_data({"attrs":["A", "B", "C"], "data":tab})
+
+    }).catch(e => {alert(e+': Error in query')});
 
 
-    var X =['A', 'B', 'C']
-    var Y = [1,3,2]
-    var X1 =['G', 'E', 'F']
-    var Y1 = [3,2,4]
-    
-    //alert("123")
 
-    display_subsets(X1, Y1);
-    display_by_constraint(X, Y)
-    
+}
+
+function display_data(data){
+    var tab = document.getElementById("result");
+    var attrs = data["attrs"]
+    var datas = data["data"]
+    var res = '<tr style="background: #aaa; color: white;">';//'<tr> <th>Selection</th> <th>Constraint ID</th> <th>Description</th>   </tr>';
+    attrs.forEach(e => {res += '<th>'+e+'</th>';});
+    res += '</tr>';
+    datas.forEach(el => {var t='<tr>'; el.forEach(e => {t += '<th>'+e+'</th>';}); t+='</tr>'; res+=t;});
+    tab.innerHTML = '<table>'+res+'</table>';
+    //alert("display data")
 }
 
 function getOperateursValue(){

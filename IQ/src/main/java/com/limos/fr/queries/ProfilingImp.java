@@ -454,5 +454,27 @@ public class ProfilingImp implements ProfilingService{
 		} 
 		rs.close();   
 		return res.toString();    
-	}              
+	}
+
+	@Override
+	public String getQueryExecution(String param) throws Exception {
+		//to do
+	//content = "{'query':'"+query+"', 'operator':'"+operator+"', 
+	//'measure':'"+measure+"', 'filterValue':"+filter_value+" 
+	//'selectedConstraints':"+selectedConstraints+"}"; 
+		
+		JSONObject jo =  new JSONObject(param);
+		String query = jo.getString("query");
+		String operator = jo.getString("operator");
+		String measure = jo.getString("measure");
+		int filter = 0;
+		try {
+			filter = jo.getInt("filterValue");
+		}catch(Exception e) {}
+		long cstrs = jo.getLong("selectedConstraints");
+		
+		
+		
+		return "{}"; 
+	}               
 }   

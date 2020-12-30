@@ -19,5 +19,6 @@ public interface ProfilingService {
 	public String getConstraints() throws Exception;
 	public String gettupleProportion(String param) throws Exception;
 	public String gettupleViolations(String param) throws Exception;
+	public String getQueryExecution(String param) throws Exception;
 		
 }
