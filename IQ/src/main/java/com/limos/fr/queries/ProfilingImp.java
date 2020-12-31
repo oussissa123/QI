@@ -456,6 +456,8 @@ public class ProfilingImp implements ProfilingService{
 		return res.toString();    
 	}
 
+	int limit = 50;
+	
 	@Override
 	public String getQueryExecution(String param) throws Exception {
 		//to do
@@ -472,9 +474,183 @@ public class ProfilingImp implements ProfilingService{
 			filter = jo.getInt("filterValue");
 		}catch(Exception e) {}
 		long cstrs = jo.getLong("selectedConstraints");
+	
+		String newQuery = getQuery(query, operator, measure, filter, cstrs);
+
+		System.out.println(newQuery);
+		
+		String dataShown = "{\"attrs\": ";//"data"
+		
+		ResultSet rs = Config.con.createStatement().executeQuery(newQuery);
+		List<String> columns = new ArrayList<String>();
+		for(int i =1; i<rs.getMetaData().getColumnCount()-1; i++)
+			columns.add("\""+rs.getMetaData().getColumnLabel(i)+"\"");
+		columns.add("\""+measure+"\"");
+		dataShown+=columns.toString()+", \"data\":";
+		int j = 0;
+		List<String> data = new ArrayList<String>();
+		
+		Map<Integer, Integer> vio_dist = new HashMap<Integer, Integer>();
+		Map<Long, Integer> vio_sub = new HashMap<Long, Integer>();
+		
+		int all = 0; 
+		
+		while(rs.next()) {
+			if ((operator.equalsIgnoreCase("all") && j<=limit)||(!operator.equalsIgnoreCase("all"))) {
+				List<String> line = new ArrayList<String>();
+				for(int i =1; i<rs.getMetaData().getColumnCount(); i++)
+						line.add("\""+rs.getString(i)+"\"");
+				data.add(line.toString());
+				j++;
+			}
+			
+			int vio = rs.getInt(rs.getMetaData().getColumnCount()-1);
+			long sub = rs.getLong(rs.getMetaData().getColumnCount());
+			
+			if (!vio_dist.containsKey(vio))
+				vio_dist.put(vio, 0);
+			if (!vio_sub.containsKey(sub))
+				vio_sub.put(sub, 0);
+			
+			vio_dist.put(vio, vio_dist.get(vio)+1);
+			vio_sub.put(sub, vio_sub.get(sub)+1);
+			
+			all++;
+		}
+		rs.close();
 		
 		
 		
-		return "{}"; 
-	}               
+		Map<Integer, String> constraints = getConstraintPos();
+		
+		List<String> XvioDist = new ArrayList<String>();
+		List<String> XvioSub = new ArrayList<String>();
+		
+		List<Double> YvioDist = new ArrayList<Double>();
+		List<Double> YvioSub = new ArrayList<Double>();
+		
+		for(Integer key:vio_dist.keySet()) {
+			XvioDist.add("\""+key+"\"");
+			double e = ((vio_dist.get(key)*1d)/(all*1d))*100;
+			YvioDist.add(e);
+		}
+		
+		for(Long key:vio_sub.keySet()) {
+			XvioSub.add("\""+getSet(key, constraints)+"\"");
+			double e = ((vio_sub.get(key)*1d)/(all*1d))*100;
+			YvioSub.add(e);
+		}
+		
+		String sub_vio = "{\"X\":"+XvioSub.toString()+", \"Y\":"+YvioSub.toString()+"}";
+		
+		String vio_dist_ = "{\"X\":"+XvioDist.toString()+", \"Y\":"+YvioDist.toString()+"}";
+		dataShown += data.toString()+"}";
+		
+		return "{\"data\":"+dataShown+", \"sub_vio\":"+sub_vio+", \"vio_dist\":"+vio_dist_+"}"; 
+	}
+	
+
+	private String getSet(Long key, Map<Integer, String> constraints) {
+		Set<String> set = new HashSet<String>();
+		for(Integer p:constraints.keySet()) {
+			if (((key>>p)&1)!=0)
+				set.add(constraints.get(p));
+		}
+		return set.toString().replace("[", "{").replace("]", "}");
+	}
+
+	private Map<Integer, String> getConstraintPos() throws Exception{
+		String query = "SELECT * FROM c.c;";
+		ResultSet r = Config.con.createStatement().executeQuery(query);
+		Map<Integer, String> cst = new HashMap<Integer, String>();
+		while(r.next())
+			cst.put(r.getInt("position"), r.getString("id"));
+		r.close();
+		return cst;
+	}
+
+	/*
+	 CREATE OR REPLACE FUNCTION bit_count(value bigint) 
+	RETURNS numeric AS $$
+	DECLARE res  integer := 0;
+	i  integer := 0;
+	BEGIN 
+		i:= 0;
+		res = 0;
+		While (power(2, i)<=value) loop
+			res := res + ((value>>i)&1);
+			i := i + 1 ;
+		end loop;
+		return res; 
+	END;
+	$$
+	LANGUAGE plpgsql IMMUTABLE STRICT;
+	 */
+	
+	
+	//for CBM and CBS
+	private String getQuery(String query, String op, String measure, int filter, long cstrs) {
+		String tempQuery1[] = query.toLowerCase().replace("select", "").split("from");
+		
+		String select = "SELECT "+tempQuery1[0];
+		String from = " FROM "+tempQuery1[1].replace("where", "WHERE");
+		
+		//Map<String, String> tabs = new HashMap<String, String>();
+		String tab = tempQuery1[1];
+		if (tempQuery1[1].contains("where")) {
+			tab = tempQuery1[1].split("where")[0];
+		}
+		
+		//select a, min(v1 & v2), v1 & v2 from R1
+		
+		String tempQuery2[] = tab.split("( )*,( )*");
+		
+		String adSelect="";
+		String adSelect1="";
+		   
+		for(String relation:tempQuery2) {
+			String t1 [] = relation.split("( )+");
+			String rel = t1[0];
+			if (rel.isEmpty())
+				rel = t1[1];
+			try {
+				rel = t1[2];
+			}catch(Exception e) {}
+			adSelect1 += rel+".vioset & ";
+			if (measure.equalsIgnoreCase("CBS"))
+				adSelect += rel+".vioset & ";
+			if (measure.equalsIgnoreCase("CBM"))
+				adSelect += "bit_count("+rel+".vioset & " + cstrs + ") + ";
+		}
+		
+		adSelect1 = adSelect1+cstrs;//.substring(0, adSelect1.length()-2);
+		adSelect  = adSelect.substring(0, adSelect.length()-2);
+		
+		if (measure.equalsIgnoreCase("CBS"))
+			adSelect = "bit_count("+adSelect+" & "+ cstrs +")";
+		
+		adSelect = "("+adSelect + ") AS vio";
+		adSelect1 = "("+adSelect1 + ") AS vioset";
+		
+		String res = select + ", "+adSelect+", "+adSelect1+" "+from;
+		
+		if (op.equalsIgnoreCase("top-k")) {
+			if (filter>0)
+				res += " ORDER BY vio LIMIT "+(filter);
+			else
+				res += " ORDER BY vio DESC LIMIT "+(filter*(-1));  
+		}
+		if (!op.equalsIgnoreCase("all") && !op.equalsIgnoreCase("top-k")) {
+			if (tempQuery1[1].contains("where"))
+				res += " AND vio "+ op +" "+filter;
+			else
+				res += " WHERE vio "+ op +" "+filter;
+		}
+		
+		
+		return res;
+	}
+	
+	
+	
 }   

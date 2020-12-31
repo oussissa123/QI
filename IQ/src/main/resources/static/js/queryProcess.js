@@ -91,7 +91,7 @@ function display_by_constraint(X, Y){
         data: {
             labels: X,
             datasets: [{
-                label: 'Distribution by constraint',
+                label: 'Distribution of violations',
                 data: Y,
                 backgroundColor: 'rgb(127,127,127)'
             }]
@@ -142,8 +142,8 @@ function validQuery(){
     if (operator=='top-k'){
         filter_value = parseInt(filter_value); 
         if (filter_value){
-            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+" 'selectedConstraints':"+selectedConstraints+"}"; 
-            display_figs(content);
+            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+", 'selectedConstraints':"+selectedConstraints+"}"; 
+            display_figs(content, measure);
         }else
             alert("The filter value most be an integer");
     }
@@ -180,39 +180,32 @@ function validQuery(){
             }
         }
         if (filter_value && operator != 'NaN'){
-            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+" 'selectedConstraints':"+selectedConstraints+"}"; 
-            display_figs(content);
+            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+", 'selectedConstraints':"+selectedConstraints+"}"; 
+            display_figs(content, measure);
         }else
             alert("The filter value most be for example: =4 or <4 or >4 or <=4 or >=4 with 4 the theshold");
     }
     if (operator=='all'){
-        content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+" 'selectedConstraints':"+selectedConstraints+"}"; 
-        display_figs(content);
+        content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+", 'selectedConstraints':"+selectedConstraints+"}"; 
+        display_figs(content, measure);
     }
 }
 
-function display_figs(data){
+function display_figs(data, measure){
 
     var param = {'method':'Post', 'body':data};
     var url = adr+"query/execution/"
+    if (measure=='CBS' || measure == 'CBM'){
+        fetch(url,param).then(e => e.json()).then(e => {			
+            
+            display_subsets(e.sub_vio.X, e.sub_vio.Y);
+            display_by_constraint(e.vio_dist.X, e.vio_dist.Y)
+            display_data(e.data)
 
-    fetch(url,param).then(e => e.json()).then(e => {			
-        
-        var X1 =['A', 'B', 'C']
-        var Y = [1,3,2]
-        var X =['1', '2', '3']
-        var Y1 = [3,2,4]
-
-        display_subsets(X1, Y1);
-        display_by_constraint(X, Y)
-        tab = []
-        for(var i=0; i<20; i++){
-            tab.push(["a"+i, "b"+i, "c"+i])
-        }
-        display_data({"attrs":["A", "B", "C"], "data":tab})
-
-    }).catch(e => {alert(e+': Error in query')});
-
+        }).catch(e => {alert(e+': Error in query')});
+    }else {
+        alert(data.measure+" is not supported !")
+    }
 
 
 }
